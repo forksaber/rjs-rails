@@ -12,7 +12,7 @@ module RjsRails
       return @base_config if @base_config
       base_config = {
         "baseUrl"      => baseurl,
-        "paths"        => module_paths,
+        "paths"        => paths,
         "shim"         => shims,
         "waitSeconds"  => 0
       } 
@@ -56,10 +56,14 @@ module RjsRails
     end  
 
     def module_paths
-      paths = {}
+      mpaths = {}
       module_names.each { |m| paths[m] = module_path(m) }
-      paths
-    end  
+      mpaths
+    end
+
+    def paths
+      module_paths.merge(Rails.application.config.rjs.build_env.paths)
+    end
 
     def static_template
       erb_template = <<-EOF

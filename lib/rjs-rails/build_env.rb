@@ -44,6 +44,10 @@ module RjsRails
       config["shim"] || {}
     end
 
+    def paths
+      config["paths"] || {}
+    end  
+
     def assets_for_precompile
       js = []
       js << 'require.js'
