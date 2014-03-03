@@ -1,4 +1,4 @@
-var baseConfig = <%= JSON.pretty_generate(build_env.config) %>
+var baseConfig = <%= JSON.pretty_generate(config) %>
 baseConfig["onModuleBundleComplete"] = function(data) {
   console.log("Module Finished:", data.path);
   for (var i=0; i<data.included.length; i++) {
@@ -7,7 +7,7 @@ baseConfig["onModuleBundleComplete"] = function(data) {
   console.log("total files:", data.included.length);
 };
 
-var requirejs = require("<%= config.rjs_path %>");
+var requirejs = require("<%= env.rjs_path %>");
 
 requirejs.optimize(baseConfig);
 
