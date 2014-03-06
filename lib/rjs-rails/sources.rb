@@ -25,7 +25,7 @@ module RjsRails
       return [] if not readable?
       File.open sources_path do |f|
         paths = YAML.load f.read
-        paths.is_a? Array ? paths : []
+        paths.is_a?(Array) ? paths : []
       end
     end
 
@@ -36,7 +36,6 @@ module RjsRails
     def env
       @env ||= ::RjsRails::Env.new
     end
-
 
   end
 end

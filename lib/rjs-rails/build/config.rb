@@ -2,7 +2,7 @@ module RjsRails
 module Build
   class Config
 
-    attr_writer :env
+    attr_accessor :env
 
     def initialize(env = nil)
       self.env = env
@@ -32,12 +32,30 @@ module Build
       config.fetch "paths", {}
     end  
 
+    def sources
+      sources = []
+      module_names.each { |m| sources << "#{m}.js" }
+      paths_hash = paths
+      shims.each do |key, _|
+        if paths_hash.has_key? key
+          sources << "#{paths_hash[key]}.js"
+        else
+          sources << "#{key}.js"
+        end
+      end
+      return sources
+    end
+
     def assets_for_precompile
       js = []
       js << 'require.js'
       module_names.each { |m| js << "#{m}.js" }
       js
-    end  
+    end
+
+    def precompile_required?
+      ! user_config.empty?
+    end 
 
     private
 
@@ -62,14 +80,14 @@ module Build
     end  
 
     def base_config
-      base_config = ::Hash.new {
-        "baseUrl"             => env.source_dir,
+      base_config = ({
+        "baseUrl"             => env.sources_dir,
         "dir"                 => env.build_dir,
         "optimize"            => "none",
         "skipDirOptimize"     => true,
         "keepBuildDir"        => false,
         "normalizeDirDefines" => "skip"
-      } 
+      })
     end  
 
     def user_config
@@ -77,4 +95,5 @@ module Build
     end
 
   end
+end
 end

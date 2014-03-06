@@ -1,4 +1,4 @@
-var baseConfig = <%= JSON.pretty_generate(config) %>
+var baseConfig = <%= JSON.pretty_generate(config_hash) %>
 baseConfig["onModuleBundleComplete"] = function(data) {
   console.log("Module Finished:", data.path);
   for (var i=0; i<data.included.length; i++) {
