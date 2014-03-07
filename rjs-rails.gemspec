@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.version     = RjsRails::VERSION
   s.authors     = ["neeraj"]
   s.summary     = "requirejs support for rails"
-  s.description = "requires support for rail"
+  s.description = "requires support for rails"
 
   s.files = Dir["{app,config,db,lib,tasks,vendor}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
   s.test_files = Dir["test/**/*"]
