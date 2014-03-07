@@ -8,7 +8,7 @@ module RjsRails
       ActionView::Base.send :include, RjsRails::RjsHelpers
     end
 
-    config.to_prepare do
+    config.after_initialize do
       Rails.application.config.rjs_runtime.reload!
     end
 
