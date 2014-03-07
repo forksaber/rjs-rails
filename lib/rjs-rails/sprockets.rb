@@ -24,6 +24,7 @@ module RjsRails
 
     def custom_sprockets_env
       custom_env = rails_assets_env.clone
+      custom_env.instance_variable_set :@bundle_processors, rails_assets_env.bundle_processors
       path = "tmp/cache/rjs_assets_#{::Rails.env}"
       custom_env.cache = ActiveSupport::Cache::FileStore.new(path)
       custom_env.js_compressor = nil

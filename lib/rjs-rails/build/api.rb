@@ -20,17 +20,18 @@ module RjsRails
       end
 
       def copy_sources
-        empty_dirs
-        puts "=> copying sources"
-        asset_paths.each_with_index do |logical_path, i|
-          cr = "\r"
-          clear = "\e[0K"
-          print cr
-          print clear
-          print "#{i+1}/#{num_assets} #{logical_path}"
-          write_asset logical_path
+        pid = Process.fork do
+          empty_dirs
+          puts "=> copying sources"
+          asset_paths.each_with_index do |logical_path, i|
+            clear = "\r\e[0K"
+            print clear
+            print "#{i+1}/#{num_assets} #{logical_path}"
+            write_asset logical_path
+          end
+          puts
         end
-        puts
+        Process.wait
       end
 
 
@@ -47,7 +48,7 @@ module RjsRails
       end
 
       def optimize
-        puts "=> optimizing "
+        puts "=> optimizing requirejs files "
         command = "node #{env.build_js}"
         IO.popen(command) do |f|
           f.each { |line| puts line }
