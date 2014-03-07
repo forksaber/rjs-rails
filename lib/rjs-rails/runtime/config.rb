@@ -30,7 +30,7 @@ module RjsRails
       end
 
       def module_path(m)
-       helper.javascript_path m
+        helper.javascript_path(m).sub(/.js$/,'')
       end
 
       
