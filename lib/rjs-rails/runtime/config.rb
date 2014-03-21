@@ -38,7 +38,7 @@ module RjsRails
         @helper ||= begin
           proxy = ::ActionView::Base.new
           proxy.config = ::ActionController::Base.config.inheritable_copy
-          proxy.extend(_helpers)
+          proxy.extend(::ActionController::Base._helpers)
         end
       end
 
