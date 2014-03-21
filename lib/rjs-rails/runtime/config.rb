@@ -35,7 +35,11 @@ module RjsRails
 
       
       def helper
-        ActionController::Base.helpers
+        @helper ||= begin
+          proxy = ::ActionView::Base.new
+          proxy.config = ::ActionController::Base.config.inheritable_copy
+          proxy.extend(_helpers)
+        end
       end
 
       private
