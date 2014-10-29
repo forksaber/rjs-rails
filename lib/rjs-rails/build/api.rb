@@ -53,6 +53,7 @@ module RjsRails
         IO.popen(command) do |f|
           f.each { |line| puts line }
         end
+        raise "error in command #{command}" if $?.exitstatus !=0
       end
 
       def prepend_path
