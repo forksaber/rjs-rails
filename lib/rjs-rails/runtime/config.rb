@@ -82,7 +82,7 @@ module RjsRails
       end
 
       def config
-        @config ||= base_config.merge(user_config)
+        @config ||= base_config.deep_merge(user_config)
       end  
 
     end
